@@ -1,0 +1,9 @@
+DRC Rules Export File for PCB: D:\_Altium projects\150175_inverted_pendulum\hardware\Pendulum.PcbDoc
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=4.92
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=2.95
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=PolyClr_SENSE|Scope=Board|Minimum=11.81
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.00
+RuleKind=Clearance|RuleName=PolyClr_General|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=PolyClr_V12|Scope=Board|Minimum=11.81
+RuleKind=Clearance|RuleName=PolyClr_SMPS|Scope=Board|Minimum=15.75

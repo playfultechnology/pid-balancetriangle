@@ -1,0 +1,19 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: Pendulum.PcbDoc   10/7/2015  15:08:19
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Pendulum.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        0.3mm (11.811mil)        Round          119              356.91 mm (14.05 Inch)
+T2        0.4mm (15.748mil)        Round          81               372.23 mm (14.65 Inch)
+T3        0.6mm (23.622mil)        Round          21               37.80 mm (1.49 Inch)
+T4        1mm (39.37mil)           Round          12               121.38 mm (4.78 Inch)
+T5        1.6mm (62.992mil)        Round          5                37.39 mm (1.47 Inch)
+T6        4.1mm (161.417mil)       Round          4                96.52 mm (3.80 Inch)
+---------------------------------------------------------------------------
+Totals                                            242              1022.23 mm (40.25 Inch)
+
+Total Processing Time (hh:mm:ss) : 00:00:01
