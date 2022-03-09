@@ -14,18 +14,17 @@ int Voltage;                  //µç³ØµçÑ¹±äÁ¿
 float Angle_Balance_x;        //ºáÏò½Ç¶È
 float Gyro_Balance_x=0;       //ºáÏò½Ç¼ÓËÙ¶È
 
-
-static float Bias,Pwm,Last_bias;      //Æ«²î¡¢¿ØÖÆ±äÁ¿¡¢ÉÏÒ»´ÎÆ«²î
-
-static float Pwm_L,Integral_bias_L,Last_Bias_L,Encoder_L;
+// Deviation, Control Variable, Last Deviation 
+static float Bias, Pwm, Last_bias;
+static float Pwm_L, Integral_bias_L, Last_Bias_L, Encoder_L;
 
 int Balance_Pwm_x=0,velocity_Pwm_x=0; //ºáÏòµç»úPWM·ÖÁ¿
 char t=0;                             //×´Ì¬±äÁ¿
-int s=0;                              //ÉÏµçÎÈ¶¨±äÁ¿                    
-int TIM1_UP_IRQHandler(void)          //ËùÓĞµÄ¿ØÖÆ´úÂë¶¼ÔÚÕâÀïÃæ TIM1¿ØÖÆµÄ10ms¶¨Ê±ÖĞ¶Ï  
-{    
-	if(TIM1->SR&0X0001)
-	{   
+int s=0;                              //ÉÏµçÎÈ¶¨±äÁ¿
+
+// All the control codes are inside the 10ms timer interrupt controlled by TIM1                 
+int TIM1_UP_IRQHandler(void) {    
+	if(TIM1->SR&0X0001) {   
 		  u8 key_value;
 		  TIM1->SR&=~(1<<0);                     //===Çå³ı¶¨Ê±Æ÷1ÖĞ¶Ï±êÖ¾Î»
       Get_Angle();                           //»ñÈ¡½Ç¶È
@@ -55,17 +54,14 @@ int TIM1_UP_IRQHandler(void)          //ËùÓĞµÄ¿ØÖÆ´úÂë¶¼ÔÚÕâÀïÃæ TIM1¿ØÖÆµÄ10ms¶
 		      Voltage=Get_battery_volt();            //»ñÈ¡µçÑ¹
           Encoder_x=-Read_Encoder(2);             //¸üĞÂ±àÂëÆ÷Î»ÖÃĞÅÏ¢
 					key_value=key_read();
-					if(Angle_Balance_x<70||Angle_Balance_x>110)
-					{
-						if(key_value==1)
-						{
+					if(Angle_Balance_x<70||Angle_Balance_x>110) {
+						if(key_value==1) {
 							if(Angle_Balance_x<70)Center_Gra_Sart=Center_Gra_Sart-0.1;
 							else if(Angle_Balance_x>110)Center_Gra_Sart=Center_Gra_Sart+0.1;
 							oled_show(); 
 							delay_ms(200);				
 						}
-						else if(key_value==2)
-						{
+						else if(key_value==2) {
 							if(Angle_Balance_x<70)Energy_Storage=Energy_Storage-0.01;
 							else if(Angle_Balance_x>110)Energy_Storage=Energy_Storage+0.01;
 							if(Energy_Storage>0.6)Energy_Storage=0.6;
@@ -73,8 +69,7 @@ int TIM1_UP_IRQHandler(void)          //ËùÓĞµÄ¿ØÖÆ´úÂë¶¼ÔÚÕâÀïÃæ TIM1¿ØÖÆµÄ10ms¶
 							delay_ms(200);
 						}
 				  }
-					else if(key_value==3)
-					{
+					else if(key_value==3) {
 						fill_picture(0x00);	            //OLEDÇåÆÁ
 						OLED_ShowString(5,3,"Parameters",12);
 						OLED_ShowString(10,4,"Saving...",12);
@@ -98,8 +93,7 @@ int TIM1_UP_IRQHandler(void)          //ËùÓĞµÄ¿ØÖÆ´úÂë¶¼ÔÚÕâÀïÃæ TIM1¿ØÖÆµÄ10ms¶
 	}       	
 	 return 0;	  
 } 
-void left_up()
-{
+void left_up() {
   if(t==0)t=1;	
 	if(t==1)                                                     //µÚÒ»½×¶Î£º¶ÁÈ¡ÎÈ¶¨½Ç¶È
 	{
@@ -136,26 +130,26 @@ void left_up()
 }
 void Right_up()
 {
-	if(t==0)t=11;	
-	if(t==11)                                                     //µÚÒ»½×¶Î£º¶ÁÈ¡ÎÈ¶¨½Ç¶È
-	{
+	if(t==0)t=11;
+	// Stage 1: Read Stability Angle
+	if(t==11)	{
 		static float angle_last;
 		float angle_bias;      //½Ç¶È±ä»¯Á¿
-		angle_bias*=0.8;
-		angle_bias+=(angle_last-Angle_Balance_x)*0.2;//Ò»½×ÂË²¨
-		if(angle_bias<0.01||angle_bias>-0.01)t=12;    //Èô½Ç¶È±ä»¯Á¿ºÜĞ¡ÁË£¬ËµÃ÷½Ç¶ÈÒÑÎÈ¶¨
+		angle_bias *= 0.8;
+		angle_bias += (angle_last-Angle_Balance_x)*0.2;//Ò»½×ÂË²¨
+		if(angle_bias<0.01||angle_bias>-0.01) t=12;    //Èô½Ç¶È±ä»¯Á¿ºÜĞ¡ÁË£¬ËµÃ÷½Ç¶ÈÒÑÎÈ¶¨
 		angle_last=Angle_Balance_x;
 	}
-	else if(t==12)                                                //µÚ¶ş½×¶Î£º¸ù¾İµ¹ÏÂµÄ½Ç¶ÈÈ·¶¨¹ßÁ¿ÂÖĞı×ªµÄËÙ¶È
-	{
+	// Stage 2: Determine the rotational speed of the inertia wheel according to the falling angle 
+	else if(t==12) {
 		float speed_target,speed_bias;
-		speed_target=Angle_Balance_x-90.0;
-		Moto_x=Incremental_PI (-Encoder_x,speed_target*Energy_Storage);
+		speed_target = Angle_Balance_x-90.0;
+		Moto_x = Incremental_PI (-Encoder_x,speed_target*Energy_Storage);
 		speed_bias=speed_target*Energy_Storage-Encoder_x; 
 		if(speed_bias<3&&speed_bias>-3)t=13,Bias=Pwm=Last_bias=0;    //ÈôËÙ¶È±ä»¯Á¿ºÜĞ¡ÁË£¬ËµÃ÷ËÙ¶ÈÒÑÎÈ¶¨
 	}
-	else if(t==13)                                                //µÚÈı½×¶Î£ºÉ²³µÆğÁ¢
-	{		
+	// Brake to stand up
+	else if(t==13) {		
 		int i=0; 	
     while(Angle_Balance_x<75)      //µ½´ï½Ç¶ÈÆ½ºâ
 		{
@@ -263,7 +257,6 @@ void Get_Angle(void)
   Gyro_Y=Gyro_Y/16.4;               //ÍÓÂİÒÇÁ¿³Ì×ª»»
 	//Yijielvbo_Y(Accel_Y,-Gyro_Y);
 
-			
 	Gyro_X=sensor.gyro.origin.x;//¶ÁÈ¡XÖáÍÓÂİÒÇ
 	Accel_Y=sensor.acc.origin.y; //¶ÁÈ¡YÖá¼ÓËÙ¶È¼Æ
 	if(Gyro_X>32768)  Gyro_X-=65536;                       //Êı¾İÀàĞÍ×ª»»  Ò²¿ÉÍ¨¹ıshortÇ¿ÖÆÀàĞÍ×ª»»
@@ -273,4 +266,3 @@ void Get_Angle(void)
   Gyro_X=Gyro_X/16.4;               //ÍÓÂİÒÇÁ¿³Ì×ª»»			
 	Yijielvbo_X(Accel_X,-Gyro_X);
 }
-
