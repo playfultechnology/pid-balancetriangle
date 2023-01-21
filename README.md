@@ -29,4 +29,7 @@ The source code comes supplied as a Keil project, so to compile and upload the s
  - Output Tab: Select folder for objects as \OBJ
 4. Build by selecting Project - Build Target 
 5. To upload to the device, connect an STLink USB dongle to the triangle, with 3.3V, GND, DIO and CLK.
-6. Then load STM32CubeProgrammer, Connect to the device, select the .hex file compiled by Keil, and then upload. 
+6. Then load STM32CubeProgrammer, Connect to the device, select the .hex file compiled by Keil, and then upload.
+
+![](images/stlink2.jpg)
+![](images/stm32cubeprogrammer.jpg)
