@@ -2,7 +2,7 @@
 ..\obj\stm32f10x_bkp.o: ..\STM32F10x_FWLib\inc\stm32f10x_bkp.h
 ..\obj\stm32f10x_bkp.o: ..\SYSTEM\sys\stm32f10x.h
 ..\obj\stm32f10x_bkp.o: ..\CORE\core_cm3.h
-..\obj\stm32f10x_bkp.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\stm32f10x_bkp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\stm32f10x_bkp.o: ..\SYSTEM\sys\system_stm32f10x.h
 ..\obj\stm32f10x_bkp.o: ..\USER\stm32f10x_conf.h
 ..\obj\stm32f10x_bkp.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h

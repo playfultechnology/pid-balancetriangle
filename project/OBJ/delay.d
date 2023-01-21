@@ -3,7 +3,7 @@
 ..\obj\delay.o: ..\SYSTEM\sys\sys.h
 ..\obj\delay.o: ..\SYSTEM\sys\stm32f10x.h
 ..\obj\delay.o: ..\CORE\core_cm3.h
-..\obj\delay.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\delay.o: ..\SYSTEM\sys\system_stm32f10x.h
 ..\obj\delay.o: ..\USER\stm32f10x_conf.h
 ..\obj\delay.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -35,14 +35,14 @@
 ..\obj\delay.o: ..\SYSTEM\sys\sys.h
 ..\obj\delay.o: ..\HARDWARE\KEY\key.h
 ..\obj\delay.o: ..\HARDWARE\OLED\oled.h
-..\obj\delay.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\delay.o: ..\SYSTEM\usart\usart.h
-..\obj\delay.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\delay.o: ..\HARDWARE\ADC\adc.h
 ..\obj\delay.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\delay.o: ..\HARDWARE\MOTOR\motor.h
 ..\obj\delay.o: ..\HARDWARE\ENCODER\encoder.h
 ..\obj\delay.o: ..\HARDWARE\mpu6050\mpu6050.h
 ..\obj\delay.o: ..\HARDWARE\I2C\i2c.h
-..\obj\delay.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\delay.o: C:\mysoftware\KEIL5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
